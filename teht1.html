@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tehtävä 1 - javascript tentti</title>
+<!-- 
+If: Tee ohjelma, jolla voidaan selvittää mahdollinen lomakohde syyslomalle. 
+ -->
+</head>
+<body> 
+	<h3>Budjettiohjelma</h3>
+
+	<form>
+		<label>Budjetti:</label> 
+		<input type="text" id="budjetti" size="6"> 
+		<input type="button" value="Kerro" onclick="laskeBudjetti()">
+	</form>
+
+
+	<div id="vastaus"></div>
+	
+	<script type="text/javascript">
+
+	function laskeBudjetti() {
+
+		var budjetti = parseInt(document.getElementById("budjetti").value);
+        var kohde = "";
+        if (budjetti < 30)
+            kohde = "retkeily Nuuksiossa";
+        else if (budjetti < 200)
+            kohde = "Flamingo Span";
+        else if (budjetti < 400)
+            kohde = "Kumpeli Spa Heinola";
+        else
+            kohde = "Rukan lasketteluloma";
+
+        document.getElementById("vastaus").innerHTML = "<br>Sopiva kohde voisi olla " + kohde;
+	}
+	</script>
+</body>
+</html>

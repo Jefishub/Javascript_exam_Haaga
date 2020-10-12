@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tehtävä 3 - javascript tentti</title>
+<!-- 
+Objektitaulukko: THL pitää tilastoa Corona tartunnoista. Alla on 6.10. tilasto
+sairaanhoitoalueiden tartunnoista.
+a) Listaa osasto- (inWard) ja tehohoidossa (inIcu) olevien potilaiden määrät. Ratkaisu on
+tehtävä listaamalla tiedot taulukosta. (3p.)
+b) Lisää listaukseen sairaalahoidossa olevien yhteismäärät. Ratkaisu on tehtävä
+laskemalla tieto taulukosta. (2p.)
+c) Lisää listaukseen yhteensä sairaala ja tehohoidossa olevien määrä. Ratkaisu on
+tehtävä laskemalla tieto taulukosta. (2p.)
+d) Hae sairaanhoitopiiri, joissa on suurin osasto- ja tehohoidossa olevien yhteismäärä.
+Ratkaisu on tehtävä hakemalla tieto taulukosta. (3p.)
+ -->
+</head>
+<body> 
+	<h3>Corona tilastot</h3>
+
+	<form>
+		<input type="button" value="Näytä tiedot" onclick="naytaTiedot()">
+	</form>
+
+	<!-- Eri osiot A,B,C ja D-kohdille -->
+    <div id="vastausA"></div>
+    <div id="vastausB"></div>
+    <div id="vastausC"></div>
+    <div id="vastausD"></div>
+	
+	 <script type="text/javascript">
+	// Funktio
+	function naytaTiedot() {
+		// Annettu corona-tilasto objektitaulukko
+		var tilastot = [
+            {"area":"HYKS", "inWard":10, "inIcu":2},
+            {"area":"KYS", "inWard":0, "inIcu":1},
+            {"area":"OYS", "inWard":3, "inIcu":0},
+            {"area":"TAYS", "inWard":6, "inIcu":1},
+            {"area":"TYKS", "inWard":1, "inIcu":4},
+        ];
+
+//Tehtävät olisi kaiketi voinut suorittaa tekemällä vain d-kohdan.
+//Lähdin kuitenkin tekemään a, b, c ja d kohdan erikseen
+//Olen erotellut abcd kohdat omille osioille
+//D-kohdassa sovelsin tekemällä oman funktion suurimman sairaalan laskemiseksi.
+//Tietojen näkemiseksi on painettava nappulaa "Näytä tiedot"
+
+
+
+//A-kohdan osio
+        var tekstiA = "<br><b>a-kohdan tehtävä:</b><br>";
+        for (var i = 0; i < tilastot.length; i++) {
+            tekstiA +="<br>" + tilastot[i].area + ": osastohoidossa " + tilastot[i].inWard + ", tehohoidossa " + tilastot[i].inIcu; 
+        }
+//B-kohdan osio
+        var tekstiB = "<br><b>b-kohdan tehtävä:</b><br>";
+        for (var i = 0; i < tilastot.length; i++) {
+            tekstiB += "<br>" + tilastot[i].area + ": osastohoidossa " + tilastot[i].inWard + ", tehohoidossa " +
+                         tilastot[i].inIcu + ", yhteensä " + (tilastot[i].inWard + tilastot[i].inIcu); 
+        }
+//C-kohdan osio
+        var tekstiC = "<br><b>c-kohdan tehtävä:</b><br>";
+        var osastoC = 0;
+        var tehoC = 0;
+        for (var i = 0; i < tilastot.length; i++) {
+            osastoC += tilastot[i].inWard;
+            tehoC += tilastot[i].inIcu;
+            tekstiC += "<br>" + tilastot[i].area + ": osastohoidossa " + tilastot[i].inWard + ", tehohoidossa " +
+                         tilastot[i].inIcu + ", yhteensä " + (tilastot[i].inWard + tilastot[i].inIcu); 
+        }
+        tekstiC += "<br>Yhteensä osastohoidossa " + osastoC + ", tehohoidossa " + tehoC;
+
+//D-kohdan osio
+        var tekstiD = "<br><b>d-kohdan tehtävä:</b><br>";
+        var osastoD = 0;
+        var tehoD = 0;
+        var suurin_sairaala = laskeSuurin(tilastot);
+        for (var i = 0; i < tilastot.length; i++) {
+            osastoD += tilastot[i].inWard;
+            tehoD += tilastot[i].inIcu;
+            tekstiD += "<br>" + tilastot[i].area + ": osastohoidossa " + tilastot[i].inWard + ", tehohoidossa " +
+                         tilastot[i].inIcu + ", yhteensä " + (tilastot[i].inWard + tilastot[i].inIcu); 
+        }
+        tekstiD += "<br>Yhteensä osastohoidossa " + osastoD + ", tehohoidossa " + tehoD + "<br>";
+        tekstiD += "<br>Suurin määrä sairaalassa on " + suurin_sairaala + ":in sairaanhoitoalueella";
+		
+        function laskeSuurin(tilasto){
+            var yht = tilasto[0].inIcu + tilasto[0].inWard;
+            var sairaala = tilasto[0].area;
+            for (var j = 0; j< tilasto.length-1;j++){
+                if (tilasto[j+1].inIcu + tilasto[j+1].inWard > yht) {
+                    yht = tilasto[j+1].inIcu + tilasto[j+1].inWard;
+                    sairaala = tilasto[i+1].area;
+                }
+            }
+            return sairaala ;
+        }
+
+		// Vastaukse kirjoitettu eri osioihin
+		document.getElementById("vastausA").innerHTML = tekstiA;
+        document.getElementById("vastausB").innerHTML = tekstiB;
+        document.getElementById("vastausC").innerHTML = tekstiC;
+        document.getElementById("vastausD").innerHTML = tekstiD;
+	}
+	</script>
+</body>
+</html>

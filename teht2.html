@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tehtävä 2 - javascript tentti</title>
+<!-- 
+Funktio: Tee ohjelma, jolla voidaan laskea vuositulojen perusteella opintotuen vuosituloraja.
+Lisäksi ohjelma kertoo, ylittävätkö vuositulot vuositulorajan. (10p.)
+
+Käytä ratkaisussa kolmea funktiota:
+1. Painikkeelle tehty funktio
+2. Funktio, joka laskee vuositulorajan. Funktiolle viedään parametrina tukikuukausien määrä
+ja funktio palauttaa vuositulorajan
+Vuosituloraja lasketaan siten, että tuloja voi olla 667 euroa jokaista tukikuukautta kohti
+ja 1 990 euroa jokaista tuetonta kuukautta kohti.
+vuosituloraja siis lasketaan tukikuukaudet * 667 + (12-tukikuukaudet) * 1990
+3. Funktio, joka kertoo, onko vuosituloraja ylitetty. Funktioille viedään parametrina
+vuosituloraja ja vuositulot.
+Jos ratkaisussa ei ole kolmea funktioita, tehtävästä tulee vain max. 3 pistettä.
+ -->
+</head>
+<body> 
+	<h3>Vuositulorajalaskuri</h3>
+
+	<form>
+        <p>
+            <label>Vuositulot:</label> 
+            <input type="text" id="vuositulot" size="6"> 
+        </p>
+        <p>
+            <label>Tukikuukaudet:</label> 
+            <input type="text" id="kuukaudet" size="4"> 
+        </p>
+		<input type="button" value="kerro" onclick="laskeTuloraja()">
+	</form>
+
+	<!-- Tänne kirjoitetaan vastaus JavaScriptillä -->
+	<div id="vastaus"></div>
+	
+	 <script type="text/javascript">
+	// Funktio
+	function laskeTuloraja() {
+		// Lomakekentän arvo
+		var vuositulot = parseInt(document.getElementById("vuositulot").value);
+        var kuukaudet = parseInt(document.getElementById("kuukaudet").value);
+        var tuloraja = vuosiTuloraja(kuukaudet);
+        var teksti = "";
+
+        if (onYlitetty(tuloraja,vuositulot))
+            teksti = "Vuositulot ylittävät vuositulorajan.";
+        else
+            teksti = "Vuositulot eivät ylitä vuositulorajaa.";
+
+		// Vastauksen kirjoittaminen html-sivulle
+		document.getElementById("vastaus").innerHTML = "<br>Vuosituloraja on " + tuloraja.toFixed(2) + " euroa.<br>" + teksti;
+    
+    function vuosiTuloraja(kuukaudet){
+        var tuloraja = kuukaudet*667 + (12-kuukaudet)*1990;
+        return tuloraja;
+    }
+
+    function onYlitetty(tuloraja,vuositulot){
+        if (vuositulot > tuloraja)
+            return true;
+        else
+            return false;
+    }
+
+	}
+	</script>
+</body>
+</html>
